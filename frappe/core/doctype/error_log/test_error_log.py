@@ -20,9 +20,9 @@ class TestErrorLog(IntegrationTestCase):
 		error_log = frappe.log_error(
 		title=title,
 		message="Test error",
-		defer_insert=True,
 		)
 		self.assertEqual(error_log.method, title[:140])
+		self.assertIn(title, error_log.error)
 	def test_error_fingerprint(self):
 		def boom(msg):
 			raise ValueError(msg)
